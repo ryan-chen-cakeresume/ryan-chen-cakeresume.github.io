@@ -1,0 +1,101 @@
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #input {
+      border-radius: 36px;
+      padding: 8px 12px;
+      background-color: #462e31;
+
+      display: flex;
+
+      input,
+      button {
+        margin: 0;
+        border: none;
+        padding: 0;
+        background: none;
+
+        outline: none;
+      }
+
+      input {
+        color: white;
+        font-size: x-large;
+        padding: 0 12px;
+      }
+
+      button {
+        color: white;
+        font-size: x-large;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 8px 12px;
+        border-radius: 24px;
+      }
+
+      button:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="input">
+      <input id="count" />
+      <button id="generate-button" style="z-index: 100">ちいかわ！</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas')
+
+    const countInput = document.getElementById('count')
+    const generateButton = document.getElementById('generate-button')
+
+    generateButton.addEventListener('click', function () {
+      createChiikawa(0, countInput.value)
+    })
+
+    function createChiikawa(current, total) {
+      if (current >= total) {
+        return
+      }
+
+      const wrapper = document.createElement('div')
+      wrapper.style.position = 'absolute'
+      wrapper.style.top = `${Math.random() * 200 - 50}vh`
+      wrapper.style.left = `${Math.random() * 200 - 50}vw`
+      wrapper.style.zIndex = 100
+
+      const img = document.createElement('img')
+      img.src = './chiikawa.png'
+      img.style.transform = `rotate(${Math.random() * 360}deg) scale(${
+        Math.random() * 0.5 + 0.5
+      })`
+
+      wrapper.appendChild(img)
+      canvas.appendChild(wrapper)
+
+      setTimeout(() => {
+        createChiikawa(current + 1, total)
+      }, 30)
+    }
+  </script>
+</body>
